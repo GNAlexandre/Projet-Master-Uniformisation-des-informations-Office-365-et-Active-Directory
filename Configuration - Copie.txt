@@ -1,0 +1,4 @@
+NomDomaine = nomdedomaine.fr
+NomListeUtilisateurs = CheminversCSVListeUtilisateur
+LoginOffice365 = logintenantOffice365
+PasswodOffice365 = MotdePassetenantOffice365
