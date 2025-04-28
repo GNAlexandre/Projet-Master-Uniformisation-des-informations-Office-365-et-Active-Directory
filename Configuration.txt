@@ -1,4 +1,4 @@
-NomDomaine = francecars.fr
-NomListeUtilisateurs = C:\Users\atournel\OneDrive - Institut Catholique de Lille\Infitex\Powershell\Test_Azure.csv
-LoginOffice365 = admin.infitex@francecars.fr
-PasswodOffice365 = Tan56639
+NomDomaine = nomdedomaine.fr
+NomListeUtilisateurs = CheminversCSVListeUtilisateur
+LoginOffice365 = logintenantOffice365
+PasswodOffice365 = MotdePassetenantOffice365
