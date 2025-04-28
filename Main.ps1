@@ -48,16 +48,13 @@ InitialiserActiveDirectory
 
 ### Début Initialisation Module Import ###
 
-#Appel de la fonction ImporterFichierCSV
-$csv = ImporterFichierCSV -NomFichier $NomFichier
-
 #Appel de la fonction ParcourirFichierCSV
-$ListeUtilisateurs = ParcourirFichierCSV
+$ListeUtilisateurs = ImporterEtParcourirFichierCSV -NomFichier $NomFichier -NomDomaine $NomDomaine
 
 Write-Host "--- Liste des utilisateurs ---"
 
 #Appel de la fonction ParcourirListeUtilisateurs
-ParcourirListeUtilisateurs -ListeUtilisateurs $ListeUtilisateurs
+ParcourirListeUtilisateurs -ListeUtilisateurs $ListeUtilisateurs 
 
 ### Fin Initialisation Module Import ###
 

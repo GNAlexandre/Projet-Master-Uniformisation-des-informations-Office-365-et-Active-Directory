@@ -7,32 +7,32 @@ $ListeUtilisateurs = @()
 $logFilePath = $script:logFilePath
 
 
-#Fonction Recursif pour Demander puis essayer d'importer le fichier CSV
-function ImporterFichierCSV {
+# Fonction pour importer un fichier CSV et parcourir son contenu
+function ImporterEtParcourirFichierCSV {
     param (
         [Parameter(Mandatory = $true)]
-        [string]$NomFichier
+        [string]$NomFichier,
+        [Parameter(Mandatory = $true)]
+        [string]$NomDomaine
     )
 
-    #Essaie d'importer le fichier CSV
+    # Initialisation de la liste des utilisateurs
+    $ListeUtilisateurs = @()
+    $Compteur = 0
+
+    # Essaie d'importer le fichier CSV
     try {
         $csv = Import-Csv -Path $NomFichier -Delimiter ";"
     }
     catch {
+        # Log et affichage de l'erreur en cas d'échec
         Write-Log -logFilePath $logFilePath -message "Erreur lors de l'importation du fichier CSV : $_"
         Write-Host "Erreur lors de l'importation du fichier CSV : $_"
-        Write-Host "Verifiez le chemin du fichier"
-        ImporterFichierCSV
+        Write-Host "Vérifiez le chemin du fichier"
+        return $null
     }
-    
-    return $csv
-}
 
-function ParcourirFichierCSV {
-    $ListeUtilisateurs = @()
-    $Compteur = 0
-
-    #Parcourir le fichier CSV et ajouter les utilisateurs à la liste
+    # Parcourir le fichier CSV et ajouter les utilisateurs à la liste
     foreach ($user in $csv) {
         $Utilisateur = New-Object PSObject -Property @{
             UserNbr           = $Compteur
@@ -44,14 +44,9 @@ function ParcourirFichierCSV {
         }
         $Compteur++
         $ListeUtilisateurs += $Utilisateur
-
-    
-        #Affiche barre de progression
-        #Write-Progress -Activity "Traitement des utilisateurs" -Status "Traitement de l'utilisateur $($user.UserAD)" -PercentComplete (($csv.IndexOf($user) / $csv.Count) * 100)
-
-
     }
 
+    # Retourne la liste des utilisateurs
     return $ListeUtilisateurs
 }
 
